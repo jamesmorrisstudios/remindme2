@@ -1,0 +1,99 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+// Android build settings
+android {
+    compileSdkVersion compile_api
+    buildToolsVersion build_tools_version
+
+    defaultConfig {
+        applicationId "us.jamesmorrisstudios.rrm2.app"
+        minSdkVersion min_api
+        targetSdkVersion target_api
+        versionCode app_version_code
+        versionName "$app_version_name"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // Constants
+        buildConfigField "String", "MODULE_NAME", "\"RRM2/App\""
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        // Enables Jetpack Compose for this module
+        compose false // TODO enable to use compose.
+    }
+
+    compileOptions {
+        // Flag to enable support for the new language APIs
+        coreLibraryDesugaringEnabled true
+
+        // Sets Java compatibility to Java 8
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+        freeCompilerArgs = ["-XXLanguage:+InlineClasses"]
+    }
+}
+
+// Module dependencies
+dependencies {
+    // Modules
+    implementation project(path: ':log')
+    implementation project(path: ':util')
+    implementation project(path: ':alarm')
+    implementation project(path: ':notif')
+    implementation project(path: ':storage')
+    implementation project(path: ':analytics')
+    implementation project(path: ':controller')
+
+    // Desugar Libraries
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$desugar_jdk_libs_version"
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_version"
+
+    // AndroidX
+    implementation "androidx.appcompat:appcompat:$androidx_appcompat_version"
+    implementation "androidx.core:core-ktx:$androidx_core_ktx_version"
+    implementation "androidx.constraintlayout:constraintlayout:$androidx_constraintlayout_version"
+
+    // Room
+    implementation "androidx.room:room-runtime:$androidx_room_version"
+    implementation "androidx.room:room-ktx:$androidx_room_version"
+    kapt "androidx.room:room-compiler:$androidx_room_version"
+
+    // Image Downloading
+    implementation "io.coil-kt:coil:$coil_version"
+
+    // Kochava
+    implementation("com.kochava.base:tracker:$kochava_version") {
+        transitive = false
+    }
+
+    // Jetpack compose
+    implementation "androidx.ui:ui-tooling:$androidx_ui_tooling_version"
+    implementation "androidx.ui:ui-layout:$androidx_ui_layout_version"
+    implementation "androidx.ui:ui-material:$androidx_ui_material_version"
+
+    // Unit Test
+    testImplementation "junit:junit:$junit_version"
+
+    // Functional Test
+    androidTestImplementation "androidx.test.ext:junit:$androidx_junit_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
+}

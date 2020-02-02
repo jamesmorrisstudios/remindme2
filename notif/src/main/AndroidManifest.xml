@@ -1,0 +1,45 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="us.jamesmorrisstudios.rrm2.notif" >
+
+    <!-- Notif: Permission to wake on boot. -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <application>
+
+        <!-- Notif: Receiver for notification actions. -->
+        <receiver android:name=".receiver.ActionReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="${applicationId}${ACTION_TYPE_CLICK}"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="${applicationId}${ACTION_TYPE_DISMISS}"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="${applicationId}${ACTION_TYPE_ACTION1}"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="${applicationId}${ACTION_TYPE_ACTION2}"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="${applicationId}${ACTION_TYPE_ACTION3}"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- Notif: Receiver for boot completed. -->
+        <receiver android:name=".receiver.BootCompleteReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+        <!-- Notif: Activity for notification click action. -->
+        <activity android:name=".receiver.ActionClickActivity">
+            <intent-filter>
+                <action android:name="${applicationId}${ACTION_TYPE_CLICK}"/>
+            </intent-filter>
+        </activity>
+
+    </application>
+
+</manifest>

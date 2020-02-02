@@ -1,0 +1,19 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="us.jamesmorrisstudios.rrm2.storage">
+
+    <application>
+
+        <!-- Storage: Content provider for images. -->
+        <provider
+            android:name=".image.ImageProvider"
+            android:authorities="${applicationId}${IMAGE_AUTHORITY}"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/image_paths" />
+        </provider>
+
+    </application>
+
+</manifest>

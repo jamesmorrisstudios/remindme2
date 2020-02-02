@@ -1,0 +1,84 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+// Android build settings
+android {
+    compileSdkVersion compile_api
+    buildToolsVersion build_tools_version
+
+    defaultConfig {
+        minSdkVersion min_api
+        targetSdkVersion target_api
+        versionCode app_version_code
+        versionName "$app_version_name"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+
+        // Constants
+        buildConfigField "String", "MODULE_NAME", "\"RRM2/Alarm\""
+        buildConfigField "String", "PREFS_NAME", "\"alarm.prefs\""
+        buildConfigField "String", "DB_NAME", "\"alarm.db\""
+        buildConfigField "String", "RECEIVER_ACTION", "\".alarm.WAKE\""
+
+        manifestPlaceholders = [
+                RECEIVER_ACTION: ".alarm.WAKE"
+        ]
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        // Flag to enable support for the new language APIs
+        coreLibraryDesugaringEnabled true
+
+        // Sets Java compatibility to Java 8
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+        freeCompilerArgs = ["-XXLanguage:+InlineClasses"]
+    }
+
+}
+
+// Module dependencies
+dependencies {
+    // Modules
+    implementation project(path: ':log')
+    implementation project(path: ':util')
+
+    // Desugar Libraries
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$desugar_jdk_libs_version"
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_version"
+
+    // Room
+    implementation "androidx.room:room-runtime:$androidx_room_version"
+    implementation "androidx.room:room-ktx:$androidx_room_version"
+    kapt "androidx.room:room-compiler:$androidx_room_version"
+
+    // AndroidX
+    implementation "androidx.appcompat:appcompat:$androidx_appcompat_version"
+    implementation "androidx.core:core-ktx:$androidx_core_ktx_version"
+
+    // Unit Test
+    testImplementation "junit:junit:$junit_version"
+    testImplementation "androidx.room:room-testing:$androidx_room_version"
+
+    // Functional Test
+    androidTestImplementation "androidx.test.ext:junit:$androidx_junit_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
+}

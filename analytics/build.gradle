@@ -1,0 +1,78 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+// Android build settings
+android {
+    compileSdkVersion compile_api
+    buildToolsVersion build_tools_version
+
+    defaultConfig {
+        minSdkVersion min_api
+        targetSdkVersion target_api
+        versionCode app_version_code
+        versionName "$app_version_name"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+
+        // Constants
+        buildConfigField "String", "MODULE_NAME", "\"RRM2/Analytics\""
+        buildConfigField "String", "PREFS_NAME", "\"analytics.prefs\""
+        buildConfigField "String", "KOCHAVA_APP_GUID", "\"TODO\""
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        // Flag to enable support for the new language APIs
+        coreLibraryDesugaringEnabled true
+
+        // Sets Java compatibility to Java 8
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+        freeCompilerArgs = ["-XXLanguage:+InlineClasses"]
+    }
+
+}
+
+// Module dependencies
+dependencies {
+    // Modules
+    implementation project(path: ':util')
+    implementation project(path: ':log')
+
+    // Desugar Libraries
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$desugar_jdk_libs_version"
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_version"
+
+    // AndroidX
+    implementation "androidx.appcompat:appcompat:$androidx_appcompat_version"
+    implementation "androidx.core:core-ktx:$androidx_core_ktx_version"
+
+    // Kochava
+    implementation("com.kochava.base:tracker:$kochava_version") {
+        transitive = false
+    }
+
+    // Unit Test
+    testImplementation "junit:junit:$junit_version"
+
+    // Functional Test
+    androidTestImplementation "androidx.test.ext:junit:$androidx_junit_version"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
+}
