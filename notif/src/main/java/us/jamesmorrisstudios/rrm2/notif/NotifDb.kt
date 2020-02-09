@@ -3,12 +3,13 @@ package us.jamesmorrisstudios.rrm2.notif
 import androidx.room.*
 import us.jamesmorrisstudios.rrm2.util.Guid
 import us.jamesmorrisstudios.rrm2.util.GuidDbTypeConverter
+import us.jamesmorrisstudios.rrm2.util.parseJsonObject
 
 /**
  * Notif Database
  */
-@Database(entities = [NotifItem::class], version = 1)
-@TypeConverters(NotificationDbTypeConverter::class, GuidDbTypeConverter::class)
+@Database(entities = [NotifItem::class], version = 1, exportSchema = false)
+@TypeConverters(GuidDbTypeConverter::class, NotificationDbTypeConverter::class)
 internal abstract class NotifDb : RoomDatabase() {
     abstract fun notifDao(): NotifDbDao
 }
@@ -65,12 +66,12 @@ internal class NotificationDbTypeConverter {
 
     @TypeConverter
     fun toNotificationType(string: String): Notification {
-        return Notification.fromString(string)
+        return Notification.fromJson(string.parseJsonObject())
     }
 
     @TypeConverter
     fun toStringType(notification: Notification): String {
-        return notification.toString()
+        return notification.toJson().toString()
     }
 
 }

@@ -17,8 +17,6 @@ import coil.api.get
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.consumeAsFlow
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import us.jamesmorrisstudios.rrm2.log.Log
@@ -94,20 +92,8 @@ interface Notif {
 
     /**
      * Notifications subscription channel. Receive from this using the notifications handler.
-     *
-     * TODO remove in favor of getFlow
      */
     fun subscription(): ReceiveChannel<NotifResponse>
-
-    /**
-     * Returns the flow of events.
-     *
-     * Typically used as getFlow().collect { response ->  }
-     *
-     * TODO not working yet with the unstable kotlin compiler version used by jetpack compose
-     *     https://github.com/Kotlin/kotlinx.coroutines/issues/1637
-     */
-    //fun getFlow(): Flow<NotifResponse>
 
     /**
      * Creates a new notification but does not show it.
@@ -220,11 +206,6 @@ private class NotifImpl : Notif {
     override fun subscription(): ReceiveChannel<NotifResponse> {
         return subscription
     }
-
-    /**
-     * {inherited}
-     */
-    //override fun getFlow(): Flow<NotifResponse> = subscription.consumeAsFlow()
 
     /**
      * {inherited}

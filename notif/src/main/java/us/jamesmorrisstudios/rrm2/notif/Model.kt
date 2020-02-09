@@ -37,7 +37,7 @@ data class Notification(
     /**
      * Serialize to json.
      */
-    override fun toString(): String {
+    fun toJson(): JsonObject {
         return JsonObject.build().apply {
             setUri("smallIcon", smallIcon)
             setString("title", title)
@@ -47,16 +47,15 @@ data class Notification(
             actionComplete?.let { setNotificationAction("action1", it) }
             actionIncomplete?.let { setNotificationAction("action2", it) }
             actionSnooze?.let { setNotificationAction("action3", it) }
-        }.toString()
+        }
     }
 
     companion object {
 
         /**
-         * Parse from serialized json.
+         * Parse from json.
          */
-        internal fun fromString(string: String): Notification {
-            val json = string.parseJsonObject()
+        internal fun fromJson(json: JsonObject): Notification {
             return Notification(
                 smallIcon = json.getUri("smallIcon"),
                 title = json.getString("title"),
@@ -83,11 +82,11 @@ data class NotificationAction(
     /**
      * Serialize to json.
      */
-    override fun toString(): String {
+    fun toJson(): JsonObject {
         return JsonObject.build().apply {
             setInt("iconId", iconId)
             setString("text", text)
-        }.toString()
+        }
     }
 
     companion object {
@@ -96,14 +95,13 @@ data class NotificationAction(
          * Builds a notification action with default options.
          */
         internal fun build(): NotificationAction  {
-            return fromString("")
+            return fromJson(JsonObject.build())
         }
 
         /**
-         * Parse from serialized json.
+         * Parse from json.
          */
-        internal fun fromString(string: String): NotificationAction {
-            val json = string.parseJsonObject()
+        internal fun fromJson(json: JsonObject): NotificationAction {
             return NotificationAction(
                 iconId = json.getInt("iconId"),
                 text = json.getString("text")
@@ -131,7 +129,7 @@ data class NotificationChannel(
     /**
      * Serialize to json.
      */
-    override fun toString(): String {
+    fun toJson(): JsonObject {
         return JsonObject.build().apply {
             setString("id", id)
             setString("name", name)
@@ -142,7 +140,7 @@ data class NotificationChannel(
             lights?.let { setInt("lights", it) }
             sound?.let { setUri("sound", it) }
             group?.let { setNotificationChannelGroup("group", it) }
-        }.toString()
+        }
     }
 
     companion object {
@@ -151,14 +149,13 @@ data class NotificationChannel(
          * Builds a notification channel with default options.
          */
         internal fun build(): NotificationChannel {
-            return fromString("")
+            return fromJson(JsonObject.build())
         }
 
         /**
          * Parse from serialized json.
          */
-        internal fun fromString(string: String): NotificationChannel {
-            val json = string.parseJsonObject()
+        internal fun fromJson(json: JsonObject): NotificationChannel {
             return NotificationChannel(
                 id = json.getString("id"),
                 name = json.getString("name"),
@@ -186,11 +183,11 @@ data class NotificationChannelGroup(
     /**
      * Serialize to json.
      */
-    override fun toString(): String {
+    fun toJson(): JsonObject {
         return JsonObject.build().apply {
             setString("id", id)
             setString("name", name)
-        }.toString()
+        }
     }
 
     companion object {
@@ -199,14 +196,13 @@ data class NotificationChannelGroup(
          * Builds a notification channel group with default options.
          */
         internal fun build(): NotificationChannelGroup {
-            return fromString("")
+            return fromJson(JsonObject.build())
         }
 
         /**
          * Parse from serialized json.
          */
-        internal fun fromString(string: String): NotificationChannelGroup {
-            val json = string.parseJsonObject()
+        internal fun fromJson(json: JsonObject): NotificationChannelGroup {
             return NotificationChannelGroup(
                 id = json.getString("id"),
                 name = json.getString("name")
@@ -288,7 +284,7 @@ internal fun JsonObject.optNotificationImportance(key: String): NotificationImpo
  * Extension to set the notification channel into a json object.
  */
 internal fun JsonObject.setNotificationChannel(key: String, notificationChannel: NotificationChannel) {
-    setString(key, notificationChannel.toString())
+    setJsonObject(key, notificationChannel.toJson())
 }
 
 /**
@@ -305,14 +301,14 @@ internal fun JsonObject.optNotificationChannel(key: String): NotificationChannel
     if(!has(key)) {
         return null
     }
-    return NotificationChannel.fromString(getString(key))
+    return NotificationChannel.fromJson(getJsonObject(key))
 }
 
 /**
  * Extension to set the notification channel group into a json object.
  */
 internal fun JsonObject.setNotificationChannelGroup(key: String, notificationChannelGroup: NotificationChannelGroup) {
-    setString(key, notificationChannelGroup.toString())
+    setJsonObject(key, notificationChannelGroup.toJson())
 }
 
 /**
@@ -329,14 +325,14 @@ internal fun JsonObject.optNotificationChannelGroup(key: String): NotificationCh
     if(!has(key)) {
         return null
     }
-    return NotificationChannelGroup.fromString(getString(key))
+    return NotificationChannelGroup.fromJson(getJsonObject(key))
 }
 
 /**
  * Extension to set the notification action into a json object.
  */
 internal fun JsonObject.setNotificationAction(key: String, notificationAction: NotificationAction) {
-    setString(key, notificationAction.toString())
+    setJsonObject(key, notificationAction.toJson())
 }
 
 /**
@@ -353,7 +349,7 @@ internal fun JsonObject.optNotificationAction(key: String): NotificationAction? 
     if(!has(key)) {
         return null
     }
-    return NotificationAction.fromString(getString(key))
+    return NotificationAction.fromJson(getJsonObject(key))
 }
 
 /**
