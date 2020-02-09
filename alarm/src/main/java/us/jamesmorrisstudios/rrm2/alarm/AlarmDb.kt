@@ -7,7 +7,7 @@ import us.jamesmorrisstudios.rrm2.util.GuidDbTypeConverter
 /**
  * Alarm Database
  */
-@Database(entities = [AlarmItem::class], version = 1)
+@Database(entities = [AlarmItem::class], version = 1, exportSchema = false)
 @TypeConverters(GuidDbTypeConverter::class)
 internal abstract class AlarmDb : RoomDatabase() {
     abstract fun alarmDao(): AlarmDbDao

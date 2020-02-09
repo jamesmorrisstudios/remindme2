@@ -1,5 +1,7 @@
 package us.jamesmorrisstudios.rrms2.location
 
+import android.content.Context
+
 data class GeoFence(
     val latitude: Double,
     val longitude: Double,
@@ -31,6 +33,11 @@ interface Location {
         val instance: Location by lazy { LocationImpl() }
     }
 
+    /**
+     * Initialize the location handler. Do this in the Application.onCreate method.
+     */
+    suspend fun initialize(context: Context)
+
     // TODO build this out.
     // This will be somewhat similar to the Alarm and Notif handlers.
     // GeoFences must be preserved and re-registered across system launches or if the GEOFENCE_NOT_AVAILABLE alert is fired.
@@ -51,6 +58,13 @@ interface Location {
  *
  */
 private class LocationImpl : Location {
+
+    /**
+     * {inherited}
+     */
+    override suspend fun initialize(context: Context) {
+
+    }
 
 
 }

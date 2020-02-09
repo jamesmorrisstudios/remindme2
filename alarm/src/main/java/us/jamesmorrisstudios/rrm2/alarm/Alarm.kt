@@ -44,20 +44,8 @@ interface Alarm {
 
     /**
      * Alarm subscription channel. Receive from this using the alarm handler.
-     *
-     * TODO remove in favor of getFlow
      */
     fun subscription(): ReceiveChannel<Guid>
-
-    /**
-     * Returns the flow of events.
-     *
-     * Typically used as getFlow().collect { guid ->  }
-     *
-     * TODO not working yet with the unstable kotlin compiler version used by jetpack compose
-     *     https://github.com/Kotlin/kotlinx.coroutines/issues/1637
-     */
-//    fun getFlow(): Flow<Guid>
 
     /**
      * Schedule an alarm with the given unique guid at the given time.
@@ -141,11 +129,6 @@ private class AlarmImpl : Alarm {
     override fun subscription(): ReceiveChannel<Guid> {
         return subscription
     }
-
-    /**
-     * {inherited}
-     */
-//    override fun getFlow(): Flow<Guid> = subscription.consumeAsFlow()
 
     /**
      * {inherited}

@@ -7,7 +7,7 @@ import java.lang.IllegalArgumentException
 /**
  * History Database
  */
-@Database(entities = [HistoryItem::class], version = 1)
+@Database(entities = [HistoryItem::class], version = 1, exportSchema = false)
 @TypeConverters(HistoryDbItemActionTypeConverter::class, GuidDbTypeConverter::class)
 internal abstract class HistoryDb : RoomDatabase() {
     abstract fun historyDao(): HistoryDbDao

@@ -1,2 +1,3 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="us.jamesmorrisstudios.rrm2.controller" />
+    package="us.jamesmorrisstudios.rrm2.controller">
+</manifest>

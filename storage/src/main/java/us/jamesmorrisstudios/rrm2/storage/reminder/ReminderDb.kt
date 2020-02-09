@@ -10,7 +10,7 @@ import us.jamesmorrisstudios.rrm2.util.GuidDbTypeConverter
 /**
  * Reminder Database
  */
-@Database(entities = [ReminderItem::class], version = 1)
+@Database(entities = [ReminderItem::class], version = 1, exportSchema = false)
 @TypeConverters(GuidDbTypeConverter::class)
 internal abstract class ReminderDb : RoomDatabase() {
     abstract fun reminderDao(): ReminderDbDao

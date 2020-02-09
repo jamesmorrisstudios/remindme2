@@ -16,11 +16,13 @@ import us.jamesmorrisstudios.rrm2.controller.withModifierAlarmRegular
 import us.jamesmorrisstudios.rrm2.log.Log
 import us.jamesmorrisstudios.rrm2.log.LogLevel
 import us.jamesmorrisstudios.rrm2.notif.*
+import us.jamesmorrisstudios.rrm2.rss.Rss
 import us.jamesmorrisstudios.rrm2.storage.Storage
 import us.jamesmorrisstudios.rrm2.storage.reminder.ReminderItem
 import us.jamesmorrisstudios.rrm2.util.Guid
 import us.jamesmorrisstudios.rrm2.util.currentTime
 import us.jamesmorrisstudios.rrm2.util.currentTimeMillis
+import us.jamesmorrisstudios.rrms2.location.Location
 
 /**
  * Main Application.
@@ -37,6 +39,8 @@ class App : Application() {
     private val storage = Storage.instance
     private val alarm = Alarm.instance
     private val notif = Notif.instance
+    private val rss = Rss.instance
+    private val location = Location.instance
     private val controller = Controller.instance
 
     /**
@@ -58,6 +62,16 @@ class App : Application() {
             // Initialize analytics.
             launch {
                 analytics.initialize(applicationContext)
+            }
+
+            // Initialize rss.
+            launch {
+                rss.initialize(applicationContext)
+            }
+
+            // Initialize location.
+            launch {
+                location.initialize(applicationContext)
             }
 
             // Initialize the storage system.
@@ -83,6 +97,8 @@ class App : Application() {
         log.info("App onCreate Complete")
 
         primeReminderDb()
+
+        test()
     }
 
     // Add reminders if they do not yet exist.
@@ -115,6 +131,16 @@ class App : Application() {
         }
     }
 
+    private fun test() {
+        GlobalScope.launch {
+            val guid = Guid.fromString("1894d6cc-5128-4f59-9d5d-5f1781c1b119")
+            rss.add(guid, "https://wordsmith.org/awad/rss1.xml")
+
+            delay(1000)
+
+            log.error(rss.get(guid)?.toJson().toString())
+        }
+    }
 
 //    private fun testCode() {
 //        GlobalScope.launch {

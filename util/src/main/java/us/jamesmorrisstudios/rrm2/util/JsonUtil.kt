@@ -101,7 +101,7 @@ private class JsonObjectImpl(private val obj: JSONObject) : JsonObject {
     }
 
     override fun toString(): String {
-        return obj.toString() ?: "{}"
+        return obj.toString()
     }
 
     override fun copy(): JsonObject {
@@ -345,7 +345,7 @@ private class JsonArrayImpl(private val arr: JSONArray) : JsonArray {
     }
 
     override fun toString(): String {
-        return arr.toString() ?: "[]"
+        return arr.toString()
     }
 
     override fun copy(): JsonArray {

@@ -30,7 +30,7 @@ android {
 
     buildFeatures {
         // Enables Jetpack Compose for this module
-        compose false // TODO enable to use compose.
+        compose false // TODO
     }
 
     compileOptions {
@@ -57,6 +57,8 @@ dependencies {
     implementation project(path: ':notif')
     implementation project(path: ':storage')
     implementation project(path: ':analytics')
+    implementation project(path: ':rss')
+    implementation project(path: ':location')
     implementation project(path: ':controller')
 
     // Desugar Libraries
