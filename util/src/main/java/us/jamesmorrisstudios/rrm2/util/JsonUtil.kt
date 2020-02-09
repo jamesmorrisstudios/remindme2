@@ -130,7 +130,7 @@ private class JsonObjectImpl(private val obj: JSONObject) : JsonObject {
 
     override fun optString(key: String): String? {
         val value = obj.opt(key)
-        if(value !is String) {
+        if (value !is String) {
             return null
         }
         return value
@@ -146,7 +146,7 @@ private class JsonObjectImpl(private val obj: JSONObject) : JsonObject {
 
     override fun optBoolean(key: String): Boolean? {
         val value = obj.opt(key)
-        if(value !is Boolean) {
+        if (value !is Boolean) {
             return null
         }
         return value
@@ -162,7 +162,7 @@ private class JsonObjectImpl(private val obj: JSONObject) : JsonObject {
 
     override fun optInt(key: String): Int? {
         val value = obj.opt(key)
-        if(value !is Number) {
+        if (value !is Number) {
             return null
         }
         return value.toInt()
@@ -178,7 +178,7 @@ private class JsonObjectImpl(private val obj: JSONObject) : JsonObject {
 
     override fun optLong(key: String): Long? {
         val value = obj.opt(key)
-        if(value !is Number) {
+        if (value !is Number) {
             return null
         }
         return value.toLong()
@@ -194,7 +194,7 @@ private class JsonObjectImpl(private val obj: JSONObject) : JsonObject {
 
     override fun optFloat(key: String): Float? {
         val value = obj.opt(key)
-        if(value !is Number) {
+        if (value !is Number) {
             return null
         }
         return value.toFloat()
@@ -210,7 +210,7 @@ private class JsonObjectImpl(private val obj: JSONObject) : JsonObject {
 
     override fun optDouble(key: String): Double? {
         val value = obj.opt(key)
-        if(value !is Number) {
+        if (value !is Number) {
             return null
         }
         return value.toDouble()
@@ -226,7 +226,7 @@ private class JsonObjectImpl(private val obj: JSONObject) : JsonObject {
 
     override fun optJsonObject(key: String): JsonObject? {
         val value = obj.opt(key)
-        if(value !is JSONObject) {
+        if (value !is JSONObject) {
             return null
         }
         return value.toJsonObject()
@@ -242,7 +242,7 @@ private class JsonObjectImpl(private val obj: JSONObject) : JsonObject {
 
     override fun optJsonArray(key: String): JsonArray? {
         val value = obj.opt(key)
-        if(value !is JSONArray) {
+        if (value !is JSONArray) {
             return null
         }
         return value.toJsonArray()
@@ -370,7 +370,7 @@ private class JsonArrayImpl(private val arr: JSONArray) : JsonArray {
 
     override fun optString(index: Int): String? {
         val value = arr.opt(index)
-        if(value !is String) {
+        if (value !is String) {
             return null
         }
         return value
@@ -386,7 +386,7 @@ private class JsonArrayImpl(private val arr: JSONArray) : JsonArray {
 
     override fun optBoolean(index: Int): Boolean? {
         val value = arr.opt(index)
-        if(value !is Boolean) {
+        if (value !is Boolean) {
             return null
         }
         return value
@@ -402,7 +402,7 @@ private class JsonArrayImpl(private val arr: JSONArray) : JsonArray {
 
     override fun optInt(index: Int): Int? {
         val value = arr.opt(index)
-        if(value !is Number) {
+        if (value !is Number) {
             return null
         }
         return value.toInt()
@@ -418,7 +418,7 @@ private class JsonArrayImpl(private val arr: JSONArray) : JsonArray {
 
     override fun optLong(index: Int): Long? {
         val value = arr.opt(index)
-        if(value !is Number) {
+        if (value !is Number) {
             return null
         }
         return value.toLong()
@@ -434,7 +434,7 @@ private class JsonArrayImpl(private val arr: JSONArray) : JsonArray {
 
     override fun optFloat(index: Int): Float? {
         val value = arr.opt(index)
-        if(value !is Number) {
+        if (value !is Number) {
             return null
         }
         return value.toFloat()
@@ -450,7 +450,7 @@ private class JsonArrayImpl(private val arr: JSONArray) : JsonArray {
 
     override fun optDouble(index: Int): Double? {
         val value = arr.opt(index)
-        if(value !is Number) {
+        if (value !is Number) {
             return null
         }
         return value.toDouble()
@@ -466,7 +466,7 @@ private class JsonArrayImpl(private val arr: JSONArray) : JsonArray {
 
     override fun optJsonObject(index: Int): JsonObject? {
         val value = arr.opt(index)
-        if(value !is JSONObject) {
+        if (value !is JSONObject) {
             return null
         }
         return value.toJsonObject()
@@ -482,7 +482,7 @@ private class JsonArrayImpl(private val arr: JSONArray) : JsonArray {
 
     override fun optJsonArray(index: Int): JsonArray? {
         val value = arr.opt(index)
-        if(value !is JSONArray) {
+        if (value !is JSONArray) {
             return null
         }
         return value.toJsonArray()

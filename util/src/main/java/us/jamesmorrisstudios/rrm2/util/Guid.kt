@@ -52,7 +52,7 @@ data class Guid(private val value: String = "") {
      * Returns the base version of this guid.
      */
     fun getBase(): Guid {
-        if(isBase()) {
+        if (isBase()) {
             return this
         }
         val base = this.value.split(ModConst).firstOrNull() ?: this.value
@@ -63,7 +63,7 @@ data class Guid(private val value: String = "") {
      * Returns if the given modifier is present on the guid.
      */
     fun isModifier(modifier: String): Boolean {
-        if(isBase()) {
+        if (isBase()) {
             return false
         }
         return this.value.split(ModConst).lastOrNull() == modifier

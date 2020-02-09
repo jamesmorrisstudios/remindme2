@@ -7,17 +7,9 @@ import android.content.Context
  *
  * Can support a variety of scheduling types.
  */
-interface Schedule {
-
-
-
-}
+interface Schedule
 
 /**
  *
  */
-class ScheduleImpl(private val context: Context) : Schedule {
-
-
-
-}
+class ScheduleImpl(private val context: Context) : Schedule

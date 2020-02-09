@@ -6,7 +6,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.PowerManager
 import android.provider.Settings
 import androidx.core.content.ContextCompat
@@ -20,7 +19,10 @@ import kotlinx.coroutines.sync.withLock
 import us.jamesmorrisstudios.rrm2.alarm.receiver.AlarmReceiver
 import us.jamesmorrisstudios.rrm2.log.Log
 import us.jamesmorrisstudios.rrm2.log.stringifyStacktrace
-import us.jamesmorrisstudios.rrm2.util.*
+import us.jamesmorrisstudios.rrm2.util.Guid
+import us.jamesmorrisstudios.rrm2.util.Prefs
+import us.jamesmorrisstudios.rrm2.util.currentTimeMillis
+import us.jamesmorrisstudios.rrm2.util.isRebootedSince
 
 /**
  * System Alarm Scheduler.

@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.net.Uri
 import androidx.core.content.edit
-import kotlinx.coroutines.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlin.properties.ReadWriteProperty
@@ -227,7 +229,7 @@ internal class PrefsImpl internal constructor(private val context: Context, priv
         deferredUntilLoaded.await()
         lock.withLock {
             val value = prefs.all[key]
-            if(value !is String) {
+            if (value !is String) {
                 return null
             }
             return value
@@ -258,7 +260,7 @@ internal class PrefsImpl internal constructor(private val context: Context, priv
         deferredUntilLoaded.await()
         lock.withLock {
             val value = prefs.all[key]
-            if(value !is Boolean) {
+            if (value !is Boolean) {
                 return null
             }
             return value
@@ -289,7 +291,7 @@ internal class PrefsImpl internal constructor(private val context: Context, priv
         deferredUntilLoaded.await()
         lock.withLock {
             val value = prefs.all[key]
-            if(value !is Number) {
+            if (value !is Number) {
                 return null
             }
             return value.toInt()
@@ -320,7 +322,7 @@ internal class PrefsImpl internal constructor(private val context: Context, priv
         deferredUntilLoaded.await()
         lock.withLock {
             val value = prefs.all[key]
-            if(value !is Number) {
+            if (value !is Number) {
                 return null
             }
             return value.toLong()
@@ -351,7 +353,7 @@ internal class PrefsImpl internal constructor(private val context: Context, priv
         deferredUntilLoaded.await()
         lock.withLock {
             val value = prefs.all[key]
-            if(value !is Number) {
+            if (value !is Number) {
                 return null
             }
             return value.toFloat()
@@ -382,7 +384,7 @@ internal class PrefsImpl internal constructor(private val context: Context, priv
         deferredUntilLoaded.await()
         lock.withLock {
             val value = prefs.all[key]
-            if(value !is Number) {
+            if (value !is Number) {
                 return null
             }
             return Double.fromBits(value.toLong())
@@ -413,7 +415,7 @@ internal class PrefsImpl internal constructor(private val context: Context, priv
         deferredUntilLoaded.await()
         lock.withLock {
             val value = prefs.all[key]
-            if(value !is String) {
+            if (value !is String) {
                 return null
             }
             return JsonObject.build(value)
@@ -444,7 +446,7 @@ internal class PrefsImpl internal constructor(private val context: Context, priv
         deferredUntilLoaded.await()
         lock.withLock {
             val value = prefs.all[key]
-            if(value !is String) {
+            if (value !is String) {
                 return null
             }
             return JsonArray.build(value)
@@ -771,11 +773,13 @@ fun Prefs.uri(key: String? = null, defaultValue: Uri = Uri.EMPTY): ReadWriteProp
 /**
  * Generic property delegate backed by Prefs.
  */
-private class PrefsProperty<T>(private val prefs: Prefs,
-                               private val key: String? = null,
-                               private val defaultValue: T,
-                               private val getter: Prefs.(String) -> T,
-                               private val setter: Prefs.(String, T) -> Unit) : ReadWriteProperty<Any, T> {
+private class PrefsProperty<T>(
+    private val prefs: Prefs,
+    private val key: String? = null,
+    private val defaultValue: T,
+    private val getter: Prefs.(String) -> T,
+    private val setter: Prefs.(String, T) -> Unit
+) : ReadWriteProperty<Any, T> {
 
     override fun getValue(thisRef: Any, property: KProperty<*>): T {
         return prefs.getter(key.orElse(property.name)).orElse(defaultValue)
