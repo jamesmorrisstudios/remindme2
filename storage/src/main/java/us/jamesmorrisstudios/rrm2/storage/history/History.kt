@@ -17,17 +17,22 @@ interface History {
     /**
      * Return all the history entries for the given guid.
      */
-    suspend fun get(guid: String): List<HistoryItem>
+    suspend fun getAll(guid: String): List<HistoryItem>
 
     /**
      * Return the last limit history entries for the given guid.
      */
-    suspend fun get(guid: String, limit: Int): List<HistoryItem>
+    suspend fun getLast(guid: String, limit: Int): List<HistoryItem>
 
     /**
      * Delete all history entries for the given guid.
      */
-    suspend fun delete(guid: String)
+    suspend fun deleteAll(guid: String)
+
+    /**
+     * Delete all history entries for the given guid older then the given timestamp.
+     */
+    suspend fun deleteOldest(guid: String, time: Long)
 
 }
 
@@ -47,22 +52,29 @@ internal class HistoryImpl(private val context: Context) : History {
     /**
      * {inherited}
      */
-    override suspend fun get(guid: String): List<HistoryItem> {
+    override suspend fun getAll(guid: String): List<HistoryItem> {
         return db.historyDao().getAllForGuid(guid)
     }
 
     /**
      * {inherited}
      */
-    override suspend fun get(guid: String, limit: Int): List<HistoryItem> {
+    override suspend fun getLast(guid: String, limit: Int): List<HistoryItem> {
         return db.historyDao().getLastForGuid(guid, limit).sortedBy { it.time }
     }
 
     /**
      * {inherited}
      */
-    override suspend fun delete(guid: String) {
-        db.historyDao().getAllForGuid(guid)
+    override suspend fun deleteAll(guid: String) {
+        db.historyDao().deleteForGuid(guid)
+    }
+
+    /**
+     * {inherited}
+     */
+    override suspend fun deleteOldest(guid: String, time: Long) {
+        db.historyDao().deleteOldestForGuid(guid, time)
     }
 
 }

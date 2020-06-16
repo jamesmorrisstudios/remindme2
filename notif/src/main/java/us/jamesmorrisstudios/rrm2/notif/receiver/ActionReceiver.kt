@@ -31,9 +31,9 @@ class ActionReceiver : BroadcastReceiver() {
         val action = when(intent.action) {
             context.packageName + BuildConfig.ACTION_TYPE_CLICK -> NotifActionType.Click
             context.packageName + BuildConfig.ACTION_TYPE_DISMISS -> NotifActionType.Dismiss
-            context.packageName + BuildConfig.ACTION_TYPE_ACTION_COMPLETE -> NotifActionType.ActionComplete
-            context.packageName + BuildConfig.ACTION_TYPE_ACTION_INCOMPLETE -> NotifActionType.ActionIncomplete
-            context.packageName +  BuildConfig.ACTION_TYPE_ACTION_SNOOZE -> NotifActionType.ActionSnooze
+            context.packageName + BuildConfig.ACTION_TYPE_COMPLETE -> NotifActionType.ActionComplete
+            context.packageName + BuildConfig.ACTION_TYPE_INCOMPLETE -> NotifActionType.ActionIncomplete
+            context.packageName +  BuildConfig.ACTION_TYPE_SNOOZE -> NotifActionType.ActionSnooze
             else -> null
         }
 

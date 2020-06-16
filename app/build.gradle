@@ -30,7 +30,7 @@ android {
 
     buildFeatures {
         // Enables Jetpack Compose for this module
-        compose false // TODO
+        compose true
     }
 
     compileOptions {

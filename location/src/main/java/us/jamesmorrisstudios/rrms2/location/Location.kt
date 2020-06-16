@@ -22,6 +22,8 @@ data class GeoFenceState(
  * This also provides a map UI that allows a user to choose a location for a geofence.
  *
  * https://developer.android.com/training/location/geofencing
+ *
+ * TODO given the current state of location access on Android this feature is a low priority to possibly not being implemented.
  */
 interface Location {
 

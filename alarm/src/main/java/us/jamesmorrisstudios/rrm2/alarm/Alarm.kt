@@ -222,7 +222,7 @@ private class AlarmImpl : Alarm {
     /**
      * Retrieves all alarms that are due up to the current minute.
      *
-     * On an app launch this may fire an alarm right before the onReceive method is called.
+     * On an app launch this may fire an alarm right before the onReceive method is called. This is okay as internally it ensures it fires only once.
      */
     private suspend fun notifyPastDue() {
         val timeNow = currentTimeMillis()

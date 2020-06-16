@@ -57,6 +57,12 @@ internal interface HistoryDbDao {
     @Query("DELETE FROM history WHERE guid = :guid")
     suspend fun deleteForGuid(guid: String)
 
+    /**
+     * Deletes all entries for a given guid older then the given time.
+     */
+    @Query("DELETE FROM history WHERE guid = :guid AND time < :time")
+    suspend fun deleteOldestForGuid(guid: String, time: Long)
+
 }
 
 /**
@@ -76,9 +82,9 @@ internal class HistoryDbItemActionTypeConverter {
             "re_show" -> HistoryItemAction.ReShow
             "click" -> HistoryItemAction.Click
             "dismiss" -> HistoryItemAction.Dismiss
-            "action1" -> HistoryItemAction.Action1
-            "action2" -> HistoryItemAction.Action2
-            "action3" -> HistoryItemAction.Action3
+            "complete" -> HistoryItemAction.Complete
+            "incomplete" -> HistoryItemAction.Incomplete
+            "snooze" -> HistoryItemAction.Snooze
             "cancelled" -> HistoryItemAction.Cancelled
             "replaced" -> HistoryItemAction.Replaced
             else -> throw IllegalArgumentException("Could not recognize value")
@@ -92,9 +98,9 @@ internal class HistoryDbItemActionTypeConverter {
             HistoryItemAction.ReShow -> "re_show"
             HistoryItemAction.Click -> "click"
             HistoryItemAction.Dismiss -> "dismiss"
-            HistoryItemAction.Action1 -> "action1"
-            HistoryItemAction.Action2 -> "action2"
-            HistoryItemAction.Action3 -> "action3"
+            HistoryItemAction.Complete -> "complete"
+            HistoryItemAction.Incomplete -> "incomplete"
+            HistoryItemAction.Snooze -> "snooze"
             HistoryItemAction.Cancelled -> "cancelled"
             HistoryItemAction.Replaced -> "replaced"
         }

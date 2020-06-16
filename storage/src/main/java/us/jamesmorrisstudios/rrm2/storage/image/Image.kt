@@ -10,6 +10,7 @@ import coil.api.get
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import us.jamesmorrisstudios.rrm2.storage.BuildConfig
+import us.jamesmorrisstudios.rrm2.util.scaleBounded
 import java.io.File
 import java.io.FileOutputStream
 
@@ -24,9 +25,9 @@ class ImageProvider : FileProvider()
 interface Image {
 
     /**
-     * Write a bitmap out into a file and return the provider uri for it.
+     * Write a image bitmap out into a file and return the provider uri for it.
      */
-    suspend fun write(name: String, bitmap: Bitmap): Uri?
+    suspend fun write(name: String, image: Bitmap): Uri?
 
     /**
      * Write a image from the given uri into a file and return the provider uri for it.
@@ -56,17 +57,18 @@ interface Image {
  * Implementation of the Image Manager.
  */
 internal class ImageImpl(private val context: Context) : Image {
+    private val MAX_IMAGE_WIDTH = 1024
+    private val MAX_IMAGE_HEIGHT = 1024
 
     /**
      * {inherited}
-     *
-     * TODO make this set a limit on the resolution of the incoming image.
      */
-    override suspend fun write(name: String, bitmap: Bitmap): Uri? = withContext(Dispatchers.IO) {
+    override suspend fun write(name: String, image: Bitmap): Uri? = withContext(Dispatchers.IO) {
         val result = runCatching {
+            val imageScaled = image.scaleBounded(MAX_IMAGE_WIDTH, MAX_IMAGE_HEIGHT)
             val file = File(getImageDir(), name)
             FileOutputStream(file).use {
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, it)
+                imageScaled.compress(Bitmap.CompressFormat.JPEG, 100, it)
                 it.flush()
                 FileProvider.getUriForFile(context, getAuthority(), file)
             }
@@ -76,8 +78,6 @@ internal class ImageImpl(private val context: Context) : Image {
 
     /**
      * {inherited}
-     *
-     * TODO make this set a limit on the resolution of the incoming image.
      */
     override suspend fun write(name: String, uri: Uri): Uri? {
         val result = runCatching {

@@ -21,39 +21,39 @@ data class HistoryItem(
  */
 enum class HistoryItemAction {
     /**
-     * Item shown
+     * Item shown.
      */
     Show,
 
     /**
-     * Item Reshown
+     * Item Reshown.
      */
     ReShow,
 
     /**
-     * Item clicked
+     * Item clicked.
      */
     Click,
 
     /**
-     * Item dismissed
+     * Item dismissed.
      */
     Dismiss,
 
     /**
-     * Item action 1
+     * Item complete.
      */
-    Action1,
+    Complete,
 
     /**
-     * Item action 2
+     * Item incomplete.
      */
-    Action2,
+    Incomplete,
 
     /**
-     * Item action 3
+     * Item snooze.
      */
-    Action3,
+    Snooze,
 
     /**
      * Item cancelled.

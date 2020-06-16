@@ -63,5 +63,5 @@ internal suspend fun isRefreshWorkerStarted(context: Context): Boolean {
         .getWorkInfosByTag(refreshWorkerTag)
         .await()
 
-    return !result.isEmpty()
+    return result.isNotEmpty()
 }

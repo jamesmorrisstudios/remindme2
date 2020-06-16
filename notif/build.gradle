@@ -23,16 +23,16 @@ android {
         buildConfigField "String", "DB_NAME", "\"notif.db\""
         buildConfigField "String", "ACTION_TYPE_CLICK", "\".notif.CLICK\""
         buildConfigField "String", "ACTION_TYPE_DISMISS", "\".notif.DISMISS\""
-        buildConfigField "String", "ACTION_TYPE_ACTION_COMPLETE", "\".notif.ACTION_COMPLETE\""
-        buildConfigField "String", "ACTION_TYPE_ACTION_INCOMPLETE", "\".notif.ACTION_INCOMPLETE\""
-        buildConfigField "String", "ACTION_TYPE_ACTION_SNOOZE", "\".notif.ACTION_SNOOZE\""
+        buildConfigField "String", "ACTION_TYPE_COMPLETE", "\".notif.COMPLETE\""
+        buildConfigField "String", "ACTION_TYPE_INCOMPLETE", "\".notif.INCOMPLETE\""
+        buildConfigField "String", "ACTION_TYPE_SNOOZE", "\".notif.SNOOZE\""
 
         manifestPlaceholders = [
                 ACTION_TYPE_CLICK:".notif.CLICK",
                 ACTION_TYPE_DISMISS:".notif.DISMISS",
-                ACTION_TYPE_ACTION1:".notif.ACTION_COMPLETE",
-                ACTION_TYPE_ACTION2:".notif.ACTION_INCOMPLETE",
-                ACTION_TYPE_ACTION3:".notif.ACTION_SNOOZE"
+                ACTION_TYPE_COMPLETE:".notif.COMPLETE",
+                ACTION_TYPE_INCOMPLETE:".notif.INCOMPLETE",
+                ACTION_TYPE_SNOOZE:".notif.SNOOZE"
         ]
     }
 

@@ -472,15 +472,15 @@ private class NotifImpl : Notif {
 
         // Action intents
         notification.actionComplete?.let {
-            val intent = PendingIntent.getBroadcast(context, 2, Intent(context, ActionReceiver::class.java).apply { action = context.packageName + BuildConfig.ACTION_TYPE_ACTION_COMPLETE; type = guid.toString() }, 0)
+            val intent = PendingIntent.getBroadcast(context, 2, Intent(context, ActionReceiver::class.java).apply { action = context.packageName + BuildConfig.ACTION_TYPE_COMPLETE; type = guid.toString() }, 0)
             builder.addAction(NotificationCompat.Action(it.iconId, it.text, intent))
         }
         notification.actionIncomplete?.let {
-            val intent = PendingIntent.getBroadcast(context, 3, Intent(context, ActionReceiver::class.java).apply { action = context.packageName + BuildConfig.ACTION_TYPE_ACTION_INCOMPLETE; type = guid.toString() }, 0)
+            val intent = PendingIntent.getBroadcast(context, 3, Intent(context, ActionReceiver::class.java).apply { action = context.packageName + BuildConfig.ACTION_TYPE_INCOMPLETE; type = guid.toString() }, 0)
             builder.addAction(NotificationCompat.Action(it.iconId, it.text, intent))
         }
         notification.actionSnooze?.let {
-            val intent = PendingIntent.getBroadcast(context, 4, Intent(context, ActionReceiver::class.java).apply { action = context.packageName + BuildConfig.ACTION_TYPE_ACTION_SNOOZE; type = guid.toString() }, 0)
+            val intent = PendingIntent.getBroadcast(context, 4, Intent(context, ActionReceiver::class.java).apply { action = context.packageName + BuildConfig.ACTION_TYPE_SNOOZE; type = guid.toString() }, 0)
             builder.addAction(NotificationCompat.Action(it.iconId, it.text, intent))
         }
 

@@ -23,6 +23,9 @@ class ActionClickActivity : AppCompatActivity() {
         // Forward the launching intent to the receiver.
         val actionReceiver = ActionReceiver()
         actionReceiver.onReceive(this, intent)
+
+        // Close this activity
+        finish()
     }
 
 }

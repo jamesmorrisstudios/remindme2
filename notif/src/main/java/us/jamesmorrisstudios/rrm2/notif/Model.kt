@@ -44,9 +44,9 @@ data class Notification(
             setString("message", message)
             setNotificationChannel("channel", channel)
             image?.let { setUri("image", it) }
-            actionComplete?.let { setNotificationAction("action1", it) }
-            actionIncomplete?.let { setNotificationAction("action2", it) }
-            actionSnooze?.let { setNotificationAction("action3", it) }
+            actionComplete?.let { setNotificationAction("action_complete", it) }
+            actionIncomplete?.let { setNotificationAction("action_incomplete", it) }
+            actionSnooze?.let { setNotificationAction("action_snooze", it) }
         }
     }
 
@@ -62,9 +62,9 @@ data class Notification(
                 message = json.getString("message"),
                 channel = json.getNotificationChannel("channel"),
                 image = json.optUri("image"),
-                actionComplete = json.optNotificationAction("action1"),
-                actionIncomplete = json.optNotificationAction("action2"),
-                actionSnooze = json.optNotificationAction("action3")
+                actionComplete = json.optNotificationAction("action_complete"),
+                actionIncomplete = json.optNotificationAction("action_incomplete"),
+                actionSnooze = json.optNotificationAction("action_snooze")
             )
         }
 

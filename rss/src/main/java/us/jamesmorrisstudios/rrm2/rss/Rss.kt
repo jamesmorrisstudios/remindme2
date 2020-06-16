@@ -18,8 +18,6 @@ import us.jamesmorrisstudios.rrm2.util.*
  * RSS handler.
  *
  * This manages downloading and maintaining RSS feed subscriptions.
- *
- * TODO use WorkManager to create a periodic task that will signal this to refresh all subscriptions.
  */
 interface Rss {
 

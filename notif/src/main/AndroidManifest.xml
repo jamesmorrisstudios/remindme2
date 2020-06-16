@@ -16,13 +16,13 @@
                 <action android:name="${applicationId}${ACTION_TYPE_DISMISS}"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="${applicationId}${ACTION_TYPE_ACTION1}"/>
+                <action android:name="${applicationId}${ACTION_TYPE_COMPLETE}"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="${applicationId}${ACTION_TYPE_ACTION2}"/>
+                <action android:name="${applicationId}${ACTION_TYPE_INCOMPLETE}"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="${applicationId}${ACTION_TYPE_ACTION3}"/>
+                <action android:name="${applicationId}${ACTION_TYPE_SNOOZE}"/>
             </intent-filter>
         </receiver>
 
